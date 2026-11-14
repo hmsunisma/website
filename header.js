@@ -7,6 +7,27 @@
  * ============================================================================
  */
 (function () {
+    // 0. PEMBERSIH URL OTOMATIS DI BILAH ALAMAT BROWSER (index.html -> home, hapus .html)
+    (function cleanBrowserURL() {
+        try {
+            if (!window.location.protocol.startsWith('http')) return;
+            const path = window.location.pathname;
+            let cleanPath = null;
+
+            if (path === '/' || /\/index(\.html)?$/i.test(path)) {
+                cleanPath = path.replace(/\/(index(\.html)?)?$/i, '/home');
+            } else if (/\.html$/i.test(path)) {
+                cleanPath = path.replace(/\.html$/i, '');
+            }
+
+            if (cleanPath && cleanPath !== path) {
+                window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+            }
+        } catch (e) {
+            // Abaikan jika berjalan di dalam iframe sandboxed
+        }
+    })();
+
     function initHMSHeader() {
         // Cegah duplikasi jika header sudah terpasang
         if (document.getElementById('main-header')) return;
@@ -14,38 +35,38 @@
         const container = document.getElementById('hms-header-container');
         if (!container) return;
 
-        // 1. KONFIGURASI MENU & DAFTAR BERITA (Tersinkronisasi dengan seluruh halaman)
+        // 1. KONFIGURASI MENU & DAFTAR BERITA (Clean URL tanpa .html)
         const HMS_HEADER = {
             title: 'HMS UNISMA',
             subtitle: 'Teknik Sipil',
             logo: 'https://res.cloudinary.com/t8om9lyk/image/upload/v1794560331/LOGO_HMS_TERBARU_1.png',
             logoFallback: 'https://placehold.co/40x40/1e3a8a/ffffff?text=HMS',
-            homeHref: 'index.html',
+            homeHref: 'home',
             cta: {
                 desktop: 'Aspirasi',
                 mobile: 'Sampaikan Aspirasi',
                 href: 'https://forms.gle/AoemyXn1UVsCV1pHA'
             },
             menus: [
-                { label: 'Beranda', mobileLabel: 'Beranda', href: 'index.html' },
-                { label: 'Profil', mobileLabel: 'Profil Organisasi', href: 'profil.html' },
-                { label: 'Prestasi', mobileLabel: 'Karya & Prestasi', href: 'prestasi.html' },
+                { label: 'Beranda', mobileLabel: 'Beranda', href: 'home' },
+                { label: 'Profil', mobileLabel: 'Profil Organisasi', href: 'profil' },
+                { label: 'Prestasi', mobileLabel: 'Karya & Prestasi', href: 'prestasi' },
                 {
                     label: 'Berita',
                     mobileLabel: 'Berita Terkini',
-                    href: 'berita.html',
+                    href: 'berita',
                     dropdown: [
-                        { title: 'Semua Kabar & Berita', href: 'berita.html', tag: 'Indeks Berita', isAll: true },
-                        { title: 'Forum Sipil (FORSIP) 2026 Teknik Sipil UNISMA', href: 'forum sipil 2026.html', tag: '8 Nov 2026' },
-                        { title: 'Workshop Road to KJI & KBGI 2027', href: 'workshop road to kji-kbgi 2027.html', tag: '30 Okt 2026' },
-                        { title: 'Study Excursion PT Wijaya Karya Beton', href: 'study excursion 2026.html', tag: '29 Sep 2026' },
-                        { title: 'CIVAFEST 2026 Universitas Islam Malang', href: 'civafest 2026.html', tag: '11 Agu 2026' },
-                        { title: 'CIVEX 2026 Teknik Sipil UNISMA', href: 'civex 2026.html', tag: '10 Jun 2026' },
-                        { title: 'Rapat Kerja Himpunan Mahasiswa Sipil 2026', href: 'rapat kerja 2026.html', tag: '14 Mar 2026' }
+                        { title: 'Semua Kabar & Berita', href: 'berita', tag: 'Indeks Berita', isAll: true },
+                        { title: 'Forum Sipil (FORSIP) 2026 Teknik Sipil UNISMA', href: 'forum sipil 2026', tag: '8 Nov 2026' },
+                        { title: 'Workshop Road to KJI & KBGI 2027', href: 'workshop road to kji-kbgi 2027', tag: '30 Okt 2026' },
+                        { title: 'Study Excursion PT Wijaya Karya Beton', href: 'study excursion 2026', tag: '29 Sep 2026' },
+                        { title: 'CIVAFEST 2026 Universitas Islam Malang', href: 'civafest 2026', tag: '11 Agu 2026' },
+                        { title: 'CIVEX 2026 Teknik Sipil UNISMA', href: 'civex 2026', tag: '10 Jun 2026' },
+                        { title: 'Rapat Kerja Himpunan Mahasiswa Sipil 2026', href: 'rapat kerja 2026', tag: '14 Mar 2026' }
                     ]
                 },
-                { label: 'Galeri', mobileLabel: 'Galeri Kegiatan', href: 'galeri.html' },
-                { label: 'Kontak', mobileLabel: 'Hubungi Kami', href: 'kontak.html' }
+                { label: 'Galeri', mobileLabel: 'Galeri Kegiatan', href: 'galeri' },
+                { label: 'Kontak', mobileLabel: 'Hubungi Kami', href: 'kontak' }
             ]
         };
 
@@ -60,24 +81,24 @@
                 }
                 @keyframes hmsHeaderGlow {
                     0%, 100% { border-bottom-color: rgba(30, 58, 138, 0.25); box-shadow: 0 4px 25px -2px rgba(30, 58, 138, 0.08); }
-                    50% { border-bottom-color: rgba(5, 150, 105, 0.35); box-shadow: 0 6px 30px -2px rgba(5, 150, 105, 0.18); }
-                }
-                .hms-header-anim { animation: hmsSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-                .hms-header-glow { animation: hmsHeaderGlow 4s ease-in-out infinite; }
-            `;
-            document.head.appendChild(style);
-        }
+        // 3. DETEKSI HALAMAN AKTIF DARI ATRIBUT data-active ATAU URL PATH (Mendukung URL dengan/tanpa .html)
+        const normalizeSlug = (val) => {
+            const cleaned = decodeURIComponent(val || '')
+                .split('/').pop()
+                .replace(/\.html$/i, '')
+                .trim()
+                .toLowerCase();
+            return (cleaned === '' || cleaned === 'index') ? 'home' : cleaned;
+        };
 
-        // 3. DETEKSI HALAMAN AKTIF DARI ATRIBUT data-active ATAU URL PATH
-        const rawPath = decodeURIComponent(location.pathname.split('/').pop() || 'index.html');
-        const activePage = (container.dataset.active || rawPath).toLowerCase();
+        const rawPath = location.pathname.split('/').pop() || 'home';
+        const activePage = normalizeSlug(container.dataset.active || rawPath);
         const isActive = (item) => {
-            const hrefLower = item.href.toLowerCase();
-            if (activePage === hrefLower) return true;
-            if ((activePage === '' || activePage === '/') && hrefLower === 'index.html') return true;
+            const hrefSlug = normalizeSlug(item.href);
+            if (activePage === hrefSlug) return true;
             if (item.dropdown) {
                 if (activePage.includes('berita')) return true;
-                if (item.dropdown.some(sub => sub.href.toLowerCase() === activePage)) return true;
+                if (item.dropdown.some(sub => normalizeSlug(sub.href) === activePage)) return true;
             }
             return false;
         };
