@@ -90,6 +90,7 @@
                         { title: 'Study Excursion PT Wijaya Karya Beton', href: basePath + 'detail-berita/study-excursion-2026.html', tag: '29 Sep 2026' },
                         { title: 'CIVAFEST 2026 Universitas Islam Malang', href: basePath + 'detail-berita/civafest-2026.html', tag: '11 Agu 2026' },
                         { title: 'CIVEX 2026 Teknik Sipil UNISMA', href: basePath + 'detail-berita/civex-2026.html', tag: '10 Jun 2026' },
+                        { title: 'Studi Banding HMS UNISMA & HMTS Universitas Narotama', href: basePath + 'detail-berita/study-banding-hmsunisma-&-hmtsnarotama.html', tag: '11 April 2026' },
                         { title: 'Rapat Kerja Himpunan Mahasiswa Sipil 2026', href: basePath + 'detail-berita/rapat-kerja-2026.html', tag: '14 Mar 2026' }
                     ]
                 },
