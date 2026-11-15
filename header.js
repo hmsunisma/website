@@ -2,20 +2,24 @@
  * ============================================================================
  * HEADER NAVIGASI TERPUSAT – HIMPUNAN MAHASISWA SIPIL (HMS UNISMA)
  * File ini dipanggil oleh setiap halaman HTML melalui:
- * <div id="hms-header-container" data-active="berita"></div>
- * <script src="header.js"></script>
+ * <div id="hms-header-container" data-active="berita.html"></div>
+ * <script src="header.js"></script> (atau ../header.js dari dalam subfolder)
  * ============================================================================
  */
 (function () {
-    // 0. PEMBERSIH URL OTOMATIS DI BILAH ALAMAT BROWSER (index.html -> home, hapus .html)
+    // 0. PEMBERSIH URL OTOMATIS (Aktif hanya saat online di GitHub Pages / hosting, aman untuk lokal)
     (function cleanBrowserURL() {
         try {
-            if (!window.location.protocol.startsWith('http')) return;
+            const isLocal = window.location.protocol === 'file:' ||
+                            window.location.hostname === 'localhost' ||
+                            window.location.hostname === '127.0.0.1';
+            if (isLocal) return;
+
             const path = window.location.pathname;
             let cleanPath = null;
 
-            if (path === '/' || /\/index(\.html)?$/i.test(path)) {
-                cleanPath = path.replace(/\/(index(\.html)?)?$/i, '/index.html');
+            if (/\/index\.html$/i.test(path)) {
+                cleanPath = path.replace(/\/index\.html$/i, '/');
             } else if (/\.html$/i.test(path)) {
                 cleanPath = path.replace(/\.html$/i, '');
             }
@@ -28,6 +32,12 @@
         }
     })();
 
+    // Deteksi otomatis apakah halaman saat ini berada di dalam subfolder (misal: detail-berita/)
+    const currentScript = document.currentScript;
+    const scriptSrc = currentScript ? currentScript.getAttribute('src') : '';
+    const isSubfolder = (scriptSrc && scriptSrc.startsWith('../')) || /\/detail-berita\//i.test(window.location.pathname);
+    const basePath = isSubfolder ? '../' : '';
+
     function initHMSHeader() {
         // Cegah duplikasi jika header sudah terpasang
         if (document.getElementById('main-header')) return;
@@ -35,38 +45,38 @@
         const container = document.getElementById('hms-header-container');
         if (!container) return;
 
-        // 1. KONFIGURASI MENU & DAFTAR BERITA (Clean URL tanpa .html)
+        // 1. KONFIGURASI MENU & DAFTAR BERITA (Menyesuaikan root / subfolder otomatis)
         const HMS_HEADER = {
             title: 'HMS UNISMA',
             subtitle: 'Teknik Sipil',
             logo: 'https://res.cloudinary.com/t8om9lyk/image/upload/v1794560331/LOGO_HMS_TERBARU_1.png',
             logoFallback: 'https://placehold.co/40x40/1e3a8a/ffffff?text=HMS',
-            homeHref: 'index.html',
+            homeHref: basePath + 'index.html',
             cta: {
                 desktop: 'Aspirasi',
                 mobile: 'Sampaikan Aspirasi',
                 href: 'https://forms.gle/AoemyXn1UVsCV1pHA'
             },
             menus: [
-                { label: 'Beranda', mobileLabel: 'Beranda', href: 'index.html' },
-                { label: 'Profil', mobileLabel: 'Profil Organisasi', href: 'profil.html' },
-                { label: 'Prestasi', mobileLabel: 'Karya & Prestasi', href: 'prestasi.html' },
+                { label: 'Beranda', mobileLabel: 'Beranda', href: basePath + 'index.html' },
+                { label: 'Profil', mobileLabel: 'Profil Organisasi', href: basePath + 'profil.html' },
+                { label: 'Prestasi', mobileLabel: 'Karya & Prestasi', href: basePath + 'prestasi.html' },
                 {
                     label: 'Berita',
                     mobileLabel: 'Berita Terkini',
-                    href: 'berita.html',
+                    href: basePath + 'berita.html',
                     dropdown: [
-                        { title: 'Semua Kabar & Berita', href: 'berita.html', tag: 'Indeks Berita', isAll: true },
-                        { title: 'Forum Sipil (FORSIP) 2026 Teknik Sipil UNISMA', href: 'detail berita/forum sipil 2026.html', tag: '8 Nov 2026' },
-                        { title: 'Workshop Road to KJI & KBGI 2027', href: 'detail berita/workshop road to kji-kbgi 2027.html', tag: '30 Okt 2026' },
-                        { title: 'Study Excursion PT Wijaya Karya Beton', href: 'detail berita/study excursion 2026.html', tag: '29 Sep 2026' },
-                        { title: 'CIVAFEST 2026 Universitas Islam Malang', href: 'detail berita/civafest 2026.html', tag: '11 Agu 2026' },
-                        { title: 'CIVEX 2026 Teknik Sipil UNISMA', href: 'detail berita/civex 2026.html', tag: '10 Jun 2026' },
-                        { title: 'Rapat Kerja Himpunan Mahasiswa Sipil 2026', href: 'detail berita/rapat kerja 2026.html', tag: '14 Mar 2026' }
+                        { title: 'Semua Kabar & Berita', href: basePath + 'berita.html', tag: 'Indeks Berita', isAll: true },
+                        { title: 'Forum Sipil (FORSIP) 2026 Teknik Sipil UNISMA', href: basePath + 'detail-berita/forum-sipil-2026.html', tag: '8 Nov 2026' },
+                        { title: 'Workshop Road to KJI & KBGI 2027', href: basePath + 'detail-berita/workshop-road-to-kji-kbgi-2027.html', tag: '30 Okt 2026' },
+                        { title: 'Study Excursion PT Wijaya Karya Beton', href: basePath + 'detail-berita/study-excursion-2026.html', tag: '29 Sep 2026' },
+                        { title: 'CIVAFEST 2026 Universitas Islam Malang', href: basePath + 'detail-berita/civafest-2026.html', tag: '11 Agu 2026' },
+                        { title: 'CIVEX 2026 Teknik Sipil UNISMA', href: basePath + 'detail-berita/civex-2026.html', tag: '10 Jun 2026' },
+                        { title: 'Rapat Kerja Himpunan Mahasiswa Sipil 2026', href: basePath + 'detail-berita/rapat-kerja-2026.html', tag: '14 Mar 2026' }
                     ]
                 },
-                { label: 'Galeri', mobileLabel: 'Galeri Kegiatan', href: 'galeri.html' },
-                { label: 'Kontak', mobileLabel: 'Hubungi Kami', href: 'kontak.html' }
+                { label: 'Galeri', mobileLabel: 'Galeri Kegiatan', href: basePath + 'galeri.html' },
+                { label: 'Kontak', mobileLabel: 'Hubungi Kami', href: basePath + 'kontak.html' }
             ]
         };
 
@@ -93,7 +103,7 @@
             document.head.appendChild(style);
         }
 
-        // 3. DETEKSI HALAMAN AKTIF DARI ATRIBUT data-active ATAU URL PATH (Mendukung URL dengan/tanpa .html)
+        // 3. DETEKSI HALAMAN AKTIF DARI ATRIBUT data-active ATAU URL PATH
         const normalizeSlug = (val) => {
             const cleaned = decodeURIComponent(val || '')
                 .split('/').pop()
