@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeri Dokumentasi Kegiatan – HMS UNISMA</title>
+    <!-- Favicon Logo HMS UNISMA -->
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/t8om9lyk/image/upload/v1794560331/LOGO_HMS_TERBARU_1.png">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/t8om9lyk/image/upload/v1794560331/LOGO_HMS_TERBARU_1.png">
 
     <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Beranda HMS UNISMA – Himpunan Mahasiswa Sipil Universitas Islam Malang">
-    <meta property="og:description" content="Satu Sipil, Jaya Sipil! Bersama membangun sinergi, mencetak generasi teknik sipil yang unggul, profesional, dan berintegritas.">
+    <meta property="og:title" content="Galeri Dokumentasi Kegiatan – HMS UNISMA">
+    <meta property="og:description" content="Satu Sipil, Jaya Sipil! Kumpulan dokumentasi berbagai kegiatan dan program kerja Himpunan Mahasiswa Sipil Universitas Islam Malang.">
     <meta property="og:image" content="https://res.cloudinary.com/t8om9lyk/image/upload/v1794559887/FEED_ATAS_HIMPUNAN_UNTUK_WEBSITE_salinan.jpg">
     <meta property="og:url" content="https://www.hmsunisma.site/galeri">
     <meta property="og:type" content="website">
@@ -51,36 +54,111 @@
             background-size: 24px 24px;
             overflow-x: hidden;
         }
+        /* Animasi muncul saat di-scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Desain Kartu Galeri & Transisi Timbul Super Halus */
         .gallery-card-grad {
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 247, 237, 0.9) 55%, rgba(239, 246, 255, 0.95) 100%);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(148, 163, 184, 0.35);
             box-shadow: 0 10px 28px -8px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(249, 115, 22, 0.06);
+            -webkit-tap-highlight-color: transparent;
         }
-        .gallery-card-grad:hover {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 1) 0%, rgba(255, 237, 213, 0.92) 55%, rgba(239, 246, 255, 0.98) 100%);
-            border-color: rgba(249, 115, 22, 0.38);
+        .reveal.active.gallery-card-grad {
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        background 0.5s ease,
+                        opacity 0.7s ease;
+            will-change: transform, box-shadow;
         }
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.7s cubic-bezier(0.5, 0, 0, 1);
+        @media (hover: hover) and (pointer: fine) {
+            .reveal.active.gallery-card-grad:hover {
+                transform: translateY(-8px) scale(1.015);
+                background: linear-gradient(145deg, rgba(255, 255, 255, 1) 0%, rgba(255, 237, 213, 0.94) 55%, rgba(239, 246, 255, 0.98) 100%);
+                border-color: rgba(249, 115, 22, 0.45);
+                box-shadow: 0 22px 44px -12px rgba(15, 23, 42, 0.16), 0 8px 20px -4px rgba(249, 115, 22, 0.14);
+            }
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        /* State aktif saat kartu ditekan sekali di mobile */
+        .reveal.active.gallery-card-grad.is-active {
+            transform: translateY(-8px) scale(1.015);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 1) 0%, rgba(255, 237, 213, 0.94) 55%, rgba(239, 246, 255, 0.98) 100%);
+            border-color: rgba(249, 115, 22, 0.45);
+            box-shadow: 0 22px 44px -12px rgba(15, 23, 42, 0.16), 0 8px 20px -4px rgba(249, 115, 22, 0.14);
         }
-        .no-transition {
-            transition: none !important;
+        .gallery-card-grad.is-active .card-title {
+            color: #ea580c;
+        }
+        .gallery-card-grad.is-active .card-badge-icon {
+            background-color: #1e3a8a;
+            color: #ffffff;
+        }
+        /* Crossfade & Zoom lembut pada gambar carousel */
+        .carousel-img {
+            transition: opacity 0.95s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .carousel-card:hover .carousel-img.is-slide-visible {
+                transform: scale(1.05);
+            }
+        }
+        .carousel-card.is-active .carousel-img.is-slide-visible {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body class="text-slate-800 antialiased selection:bg-hms-green selection:text-white relative">
 
     <!-- HEADER NAVIGASI TERPUSAT (TERHUBUNG KE header.js DI GITHUB / VERCEL) -->
-    <div id="hms-header-container" data-active="galeri"></div>
-    <script src="header.js"></script>
+    <div id="hms-header-container" data-active="galeri.html"></div>
+    <script>
+        function renderPreviewHeaderFallback() {
+            if (document.getElementById('main-header')) return;
+            const container = document.getElementById('hms-header-container');
+            if (!container) return;
+            container.innerHTML = `
+                <header id="main-header" class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/60 shadow-sm">
+                    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+                        <a href="index.html" class="flex items-center gap-2.5">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794560331/LOGO_HMS_TERBARU_1.png"
+                                 onerror="this.src='https://placehold.co/40x40/1e3a8a/ffffff?text=HMS'"
+                                 alt="Logo HMS UNISMA" class="w-8 h-8 md:w-9 md:h-9 object-contain">
+                            <div class="flex flex-col">
+                                <span class="text-xs md:text-base font-extrabold text-[#0f172a] tracking-tight leading-none">HMS UNISMA</span>
+                                <span class="text-[8px] md:text-[9px] font-bold text-[#059669] uppercase tracking-widest mt-0.5">Teknik Sipil</span>
+                            </div>
+                        </a>
+                        <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-full border border-slate-200/80">
+                            <a href="index.html" class="px-4 py-1.5 rounded-full text-xs font-bold text-slate-600 hover:text-[#1e3a8a]">Beranda</a>
+                            <a href="profil.html" class="px-4 py-1.5 rounded-full text-xs font-bold text-slate-600 hover:text-[#1e3a8a]">Profil</a>
+                            <a href="prestasi.html" class="px-4 py-1.5 rounded-full text-xs font-bold text-slate-600 hover:text-[#1e3a8a]">Prestasi</a>
+                            <a href="berita.html" class="px-4 py-1.5 rounded-full text-xs font-bold text-slate-600 hover:text-[#1e3a8a]">Berita</a>
+                            <a href="galeri.html" class="px-4 py-1.5 rounded-full text-xs font-extrabold bg-[#1e3a8a] text-white shadow-sm">Galeri</a>
+                            <a href="kontak.html" class="px-4 py-1.5 rounded-full text-xs font-bold text-slate-600 hover:text-[#1e3a8a]">Kontak</a>
+                        </nav>
+                        <a href="https://forms.gle/AoemyXn1UVsCV1pHA" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex px-3.5 py-1.5 bg-gradient-to-r from-[#1e3a8a] to-blue-700 text-white font-bold text-xs rounded-xl shadow-md">
+                            Aspirasi
+                        </a>
+                    </div>
+                </header>
+            `;
+        }
+    </script>
+    <script src="header.js" onerror="renderPreviewHeaderFallback()"></script>
 
     <!-- KONTEN UTAMA -->
     <main class="max-w-6xl mx-auto px-4 pt-24 sm:pt-28 pb-16 space-y-8 sm:space-y-10 relative z-20">
@@ -103,7 +181,7 @@
                     <div class="w-12 sm:w-16 h-1 sm:h-1.5 bg-gradient-to-r from-orange-400 to-amber-500 mt-2.5 sm:mt-3.5 rounded-full"></div>
                 </div>
                 <p class="text-slate-600 text-xs sm:text-sm md:text-base max-w-md md:text-right leading-relaxed">
-                    Klik pada setiap album dokumentasi kegiatan di bawah ini untuk melihat koleksi foto resolusi penuh di Google Drive resmi HMS UNISMA.
+                    Klik pada setiap album dokumen kegiatan di bawah ini untuk melihat koleksi foto resolusi penuh di Google Drive resmi HMS UNISMA.
                 </p>
             </div>
         </section>
@@ -112,29 +190,28 @@
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative z-10">
 
             <!-- ==================== ALBUM 1: FORUM SIPIL 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1goaclG4tF2FduXJ-_GM2xZjaPvG0lQZK?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794585061/IMG_5650.JPG.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+1'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Forum+Sipil+2026'" 
                          alt="Dokumentasi Forum Sipil 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794587997/IMG_5635.jpg" 
                          alt="Dokumentasi Forum Sipil 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794585059/IMG_6232.00_00_01_16.Still001.jpg.jpg" 
                          alt="Dokumentasi Forum Sipil 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592951/IMG_8907.jpg" 
                          alt="Dokumentasi Forum Sipil 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         8 November 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -142,47 +219,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Dokumentasi Forum Sipil 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Kegiatan forum sipil tahun 2026 berupa orientasi Pengenalan Program Studi Teknik Sipil (OPTENSI) dan Temu Akrab (TA).
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1goaclG4tF2FduXJ-_GM2xZjaPvG0lQZK?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 2: WORKSHOP ROAD TO KJI-KBGI 2027 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1PZBh_r1Aj4xLLGvVW1BqD-lt9EKsynBp?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794590135/IMG_7778.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+2'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Workshop+KJI-KBGI'" 
                          alt="Workshop Road to KJI-KBGI 2027 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794590136/IMG_7722.jpg" 
                          alt="Workshop Road to KJI-KBGI 2027 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794590138/IMG_7749.jpg" 
                          alt="Workshop Road to KJI-KBGI 2027 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794599639/IMG_2051.jpg" 
                          alt="Workshop Road to KJI-KBGI 2027 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         30 Oktober 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -190,47 +267,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Workshop Road to KJI-KBGI 2027
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi Kegiatan Workshop Road to KJI-KBGI 2027 oleh Himpunan Mahasiswa Sipil Universitas Islam Malang.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1PZBh_r1Aj4xLLGvVW1BqD-lt9EKsynBp?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 3: STUDY CLUB 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1N_RpNcPvXg8zCeRYQkDYjvIFBjpev-O6?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600124/Cuplikan_layar_2026-11-14_025525.png" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+3'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Study+Club+2026'" 
                          alt="Study Club 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600130/Cuplikan_layar_2026-11-14_025717.png" 
                          alt="Study Club 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600136/Cuplikan_layar_2026-11-14_030137.png" 
                          alt="Study Club 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600122/Cuplikan_layar_2026-11-14_025550.png" 
                          alt="Study Club 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -238,47 +315,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Study Club 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Study Club 2026 kepada Mahasiswa Baru Teknik Sipil oleh Himpunan Mahasiswa Sipil Universitas Islam Malang.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1N_RpNcPvXg8zCeRYQkDYjvIFBjpev-O6?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 4: ARAK-ARAKAN WISUDAWAN 2026 ==================== -->
-            <a href="#" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600432/Cuplikan_layar_2026-11-14_030630.png" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+4'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Arak-arakan+Wisudawan'" 
                          alt="Arak-arakan Wisudawan 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600439/Cuplikan_layar_2026-11-14_030447.png" 
                          alt="Arak-arakan Wisudawan 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600435/Cuplikan_layar_2026-11-14_030536.png" 
                          alt="Arak-arakan Wisudawan 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600449/IMG_0023.jpg" 
                          alt="Arak-arakan Wisudawan 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         25 Oktober 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -286,47 +363,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Arak-arakan Wisudawan 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Arak-arakan Wisudawan 25 Oktober 2026 oleh Mahasiswa Teknik Sipil Universitas Islam Malang.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="#" data-pending-drive="true"
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 5: TALKSHOW AVIAN COLORING THE FUTURE 2026 ==================== -->
-            <a href="#" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600698/Cuplikan_layar_2026-11-14_030953.png" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+5'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Talkshow+Avian'" 
                          alt="Talkshow Avian Coloring the Future 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600702/Cuplikan_layar_2026-11-14_031055.png" 
                          alt="Talkshow Avian Coloring the Future 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600706/Cuplikan_layar_2026-11-14_030924.png" 
                          alt="Talkshow Avian Coloring the Future 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600709/Cuplikan_layar_2026-11-14_031031.png" 
                          alt="Talkshow Avian Coloring the Future 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -334,47 +411,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Talkshow Avian Coloring the Future 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Talkshow Avian Coloring the Future 2026 oleh Avian Brand.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="#" data-pending-drive="true"
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 6: STUDY EXCURSION (SE) 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1pWVz-xxAnE-uzWAwJK_tEaZwSxp9GEz1?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794588479/IMG_3709.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+6'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Study+Excursion+2026'" 
                          alt="Study Excursion (SE) 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794588477/IMG_3676.jpg" 
                          alt="Study Excursion (SE) 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794588474/IMG_3808.JPG.jpg" 
                          alt="Study Excursion (SE) 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600864/Cuplikan_layar_2026-11-14_031401.png" 
                          alt="Study Excursion (SE) 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         29 September 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -382,47 +459,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Study Excursion (SE) 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Study Excursion (SE) 2026 oleh Mahasiswa Teknik Sipil Universitas Islam Malang.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1pWVz-xxAnE-uzWAwJK_tEaZwSxp9GEz1?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 7: RAPAT ANGGOTA 2026 ==================== -->
-            <a href="#" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794601022/IMG_3468.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+7'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Rapat+Anggota+2026'" 
                          alt="Rapat Anggota 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794601006/0C13D486-AD6D-41C8-99F6-5265CD2D37B2.jpg" 
                          alt="Rapat Anggota 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794601014/IMG_3178.jpg" 
                          alt="Rapat Anggota 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794600980/74617577-3593-43C2-B75B-635B12177A1D.jpg" 
                          alt="Rapat Anggota 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -430,47 +507,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Rapat Anggota 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Rapat Anggota 2026 oleh Himpunan Mahasiswa Sipil UNISMA.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="#" data-pending-drive="true"
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 8: CIVAFEST (CIVIL INNOVATION FESTIVAL) 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1nwA8hvRzBljDrbuV6EFBzKugtlzqDJWr?usp=sharing" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602587/IMG_7353.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+8'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=CIVAFEST+2026'" 
                          alt="CIVAFEST 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602564/IMG_6822.JPG.jpg" 
                          alt="CIVAFEST 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602574/IMG_5256.jpg" 
                          alt="CIVAFEST 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602708/IMG_9689.jpg" 
                          alt="CIVAFEST 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         11 Agustus 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -478,47 +555,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             CIVAFEST (CIVIL INNOVATION FESTIVAL) 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan CIVAFEST (CIVIL INNOVATION FESTIVAL) 2026 - National Event oleh Himpunan Mahasiswa Sipil UNISMA.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1nwA8hvRzBljDrbuV6EFBzKugtlzqDJWr?usp=sharing" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 9: CIVEX (CIVIL INNOVATION & EXHIBITION) 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1LvA1G9XqtcHigH6C4wHvW4yWTOqRqZXg?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602798/DSCF5267.JPG.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+9'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=CIVEX+2026'" 
                          alt="CIVEX 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602792/IMG_6232.00_00_13_04.Still003.jpg.jpg" 
                          alt="CIVEX 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602803/DSCF5328.JPG.jpg" 
                          alt="CIVEX 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794602809/DSCF0356.JPG.jpg" 
                          alt="CIVEX 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         10 Juni 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -526,47 +603,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             CIVEX (CIVIL INNOVATION & EXHIBITION) 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan CIVEX (CIVIL INNOVATION & EXHIBITION) 2026 - Internal Event oleh Himpunan Mahasiswa Sipil UNISMA.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1LvA1G9XqtcHigH6C4wHvW4yWTOqRqZXg?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 10: CONCRETE ACADEMIC 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1nC2Ktq0zBFamBmyl5sVy8LQ-lzkUH68m?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603070/Cuplikan_layar_2026-11-14_034836.png" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+10'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Concrete+Academic'" 
                          alt="Concrete Academic 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603066/Cuplikan_layar_2026-11-14_034958.png" 
                          alt="Concrete Academic 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603055/Cuplikan_layar_2026-11-14_034933.png" 
                          alt="Concrete Academic 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603060/Cuplikan_layar_2026-11-14_035021.png" 
                          alt="Concrete Academic 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -574,47 +651,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Concrete Academic 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Concrete Academic 2026 oleh Himpunan Mahasiswa Sipil UNISMA.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1nC2Ktq0zBFamBmyl5sVy8LQ-lzkUH68m?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 11: STUDI BANDING 2026 HMJ UNMER-ITN-UYP-UNISMA ==================== -->
-            <a href="https://drive.google.com/drive/folders/11ttZruR-eBMdcS_bYUvK0k4DFHlWEVTK?usp=sharing" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603351/IMG_0370.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+11'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Studi+Banding+4+Kampus'" 
                          alt="Studi Banding 2026 HMJ UNMER-ITN-UYP-UNISMA - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603316/Cuplikan_layar_2026-11-14_035321.png" 
                          alt="Studi Banding 2026 HMJ UNMER-ITN-UYP-UNISMA - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603323/DSCF5756.jpg" 
                          alt="Studi Banding 2026 HMJ UNMER-ITN-UYP-UNISMA - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603343/DSCF5879.jpg" 
                          alt="Studi Banding 2026 HMJ UNMER-ITN-UYP-UNISMA - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -622,47 +699,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Studi Banding 2026 HMJ UNMER-ITN-UYP-UNISMA
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Studi Banding 2026 HMJ UNMER-ITN-UYP-UNISMA.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/11ttZruR-eBMdcS_bYUvK0k4DFHlWEVTK?usp=sharing" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 12: FOTO STRUKTURAL 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1JMRc2SNJBtWeBL03ZaI4wf3oo-o0o-63?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794604966/FEED_ATAS_HIMPUNAN_copy.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+12'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Foto+Struktural+2026'" 
                          alt="Foto Struktural 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603551/KAHIM_WAKAHIM.jpg" 
                          alt="Foto Struktural 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603556/INFOKOM.jpg" 
                          alt="Foto Struktural 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794603562/EKSTERNAL.jpg" 
                          alt="Foto Struktural 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -670,47 +747,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Foto Struktural 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi foto struktural 2026 oleh Himpunan Mahasiswa Sipil UNISMA.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1JMRc2SNJBtWeBL03ZaI4wf3oo-o0o-63?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 13: STUDI BANDING 2026 - HMS UNISMA X HMTS NAROTAMA ==================== -->
-            <a href="https://drive.google.com/drive/folders/1cegBvTxBfxS9lrzHj1xFmgU_Ad6qMl47?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794605193/Cuplikan_layar_2026-11-14_042413.png" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+13'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Studing+Narotama'" 
                          alt="Studi Banding 2026 - HMS UNISMA x HMTS NAROTAMA - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794605199/Cuplikan_layar_2026-11-14_042550.png" 
                          alt="Studi Banding 2026 - HMS UNISMA x HMTS NAROTAMA - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794605210/Cuplikan_layar_2026-11-14_042500.png" 
                          alt="Studi Banding 2026 - HMS UNISMA x HMTS NAROTAMA - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794605204/Cuplikan_layar_2026-11-14_042523.png" 
                          alt="Studi Banding 2026 - HMS UNISMA x HMTS NAROTAMA - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -718,47 +795,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Studi Banding 2026 - HMS UNISMA x HMTS NAROTAMA
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Studi Banding 2026 antara HMS UNISMA dan HMTS NAROTAMA.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1cegBvTxBfxS9lrzHj1xFmgU_Ad6qMl47?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 14: STUDY CLUB REVIT 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1ExPALdOIEPUQ2PNByW10Jxvq2orI8njq?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606358/Cuplikan_layar_2026-11-14_044424.png" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+14'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Study+Club+Revit'" 
                          alt="Study Club Revit 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606370/Cuplikan_layar_2026-11-14_044440.png" 
                          alt="Study Club Revit 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606364/Cuplikan_layar_2026-11-14_044514.png" 
                          alt="Study Club Revit 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606354/Cuplikan_layar_2026-11-14_044528.png" 
                          alt="Study Club Revit 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -766,47 +843,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Study Club Revit 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Study Club Software BIM - Revit 2026.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1ExPALdOIEPUQ2PNByW10Jxvq2orI8njq?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 15: GATHERING 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/18JiBM6c-bxE0aNBc_7fhg3_cNOLgiiKp?usp=drive_link" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606954/WhatsApp_Image_2026-09-27_at_13.05.07.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+15'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Gathering+2026'" 
                          alt="Gathering 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606961/Cuplikan_layar_2026-11-14_045234.png" 
                          alt="Gathering 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606801/Cuplikan_layar_2026-11-14_044853.png" 
                          alt="Gathering 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794606811/Cuplikan_layar_2026-11-14_044946.png" 
                          alt="Gathering 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         HMS UNISMA 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -814,47 +891,47 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Gathering 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Gathering 2026.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/18JiBM6c-bxE0aNBc_7fhg3_cNOLgiiKp?usp=drive_link" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
             <!-- ==================== ALBUM 16: RAPAT KERJA (RAKER) 2026 ==================== -->
-            <a href="https://drive.google.com/drive/folders/1HzEUZZaFKVzNQaCY9mzUtCOmUBuJQ_kK?usp=sharing" target="_blank" rel="noopener noreferrer" 
-               class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden reveal carousel-card">
-                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-20"></div>
+            <div class="group flex flex-col gallery-card-grad rounded-2xl sm:rounded-[1.8rem] p-3.5 sm:p-4 relative overflow-hidden reveal carousel-card cursor-pointer select-none">
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-orange-400 via-amber-500 to-hms-blue opacity-75 z-30"></div>
                 <div class="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794608104/IMG_1372_1.jpg" 
-                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=Album+16'" 
+                         onerror="this.src='https://placehold.co/600x450/f97316/ffffff?text=RAKER+2026'" 
                          alt="Rapat Kerja (RAKER) 2026 - Foto 1" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 z-10 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img is-slide-visible absolute inset-0 w-full h-full object-cover opacity-100 z-10">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794608109/DSCF5046.jpg" 
                          alt="Rapat Kerja (RAKER) 2026 - Foto 2" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794608122/DSCF5071.jpg" 
                          alt="Rapat Kerja (RAKER) 2026 - Foto 3" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794608116/DSCF5011.jpg" 
                          alt="Rapat Kerja (RAKER) 2026 - Foto 4" 
-                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0 group-hover:scale-105 transition-all duration-500">
+                         class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 z-0">
                     
-                    <div class="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
+                    <div class="absolute top-3 left-3 z-30 bg-white/95 backdrop-blur-md text-hms-navy text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-sm">
                         14 Maret 2026
                     </div>
 
-                    <div class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-300">
+                    <div class="card-badge-icon absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-700 group-hover:bg-hms-blue group-hover:text-white flex items-center justify-center shadow-md transition-colors duration-500">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -862,26 +939,34 @@
                 </div>
                 <div class="pt-3.5 sm:pt-4 px-1 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors leading-snug">
+                        <h3 class="card-title text-sm sm:text-base font-extrabold text-hms-navy group-hover:text-orange-600 transition-colors duration-500 leading-snug">
                             Rapat Kerja (RAKER) 2026
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1 line-clamp-2 leading-relaxed">
                             Dokumentasi kegiatan Rapat Kerja (RAKER) 2026.
                         </p>
                     </div>
-                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue group-hover:text-orange-600 transition-colors">
+                    <a href="https://drive.google.com/drive/folders/1HzEUZZaFKVzNQaCY9mzUtCOmUBuJQ_kK?usp=sharing" target="_blank" rel="noopener noreferrer" 
+                       class="drive-link mt-3 pt-2.5 pb-1 px-2 -mx-2 rounded-xl border-t border-slate-200/60 flex items-center justify-between text-[11px] sm:text-xs font-bold text-hms-blue hover:text-orange-600 hover:bg-orange-50/70 active:scale-[0.98] transition-all duration-300">
                         <span class="flex items-center gap-1.5">
-                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
+                            <img src="https://res.cloudinary.com/t8om9lyk/image/upload/v1794592455/Google_Drive_icon__2026.svg_1.webp" onerror="this.style.display='none'" alt="Google Drive" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain">
                             Buka Folder Drive
                         </span>
-                        <span class="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </a>
                 </div>
-            </a>
+            </div>
 
         </section>
 
     </main>
+
+    <!-- Notifikasi Toast Halus untuk Album yang Link Drive-nya Belum Tersedia -->
+    <div id="drive-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+        <div class="bg-hms-navy/95 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full shadow-xl border border-white/10 backdrop-blur-md">
+            Folder Google Drive untuk kegiatan ini sedang disiapkan.
+        </div>
+    </div>
 
     <!-- FOOTER RESMI HMS UNISMA -->
     <footer class="relative bg-white/85 backdrop-blur-xl border-t border-slate-200/80 overflow-hidden reveal">
@@ -996,62 +1081,180 @@
         </div>
     </footer>
 
-    <!-- Script Animasi Scroll (Fade In) & Carousel Foto saat Hover -->
+    <!-- Script Animasi Scroll & Carousel Foto (Desktop Hover & Mobile Ketuk Sekali) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            function reveal() {
-                var reveals = document.querySelectorAll(".reveal");
-                for (var i = 0; i < reveals.length; i++) {
-                    var windowHeight = window.innerHeight;
-                    var elementTop = reveals[i].getBoundingClientRect().top;
-                    var elementVisible = 50;
+            // Pastikan header selalu muncul meski di lingkungan pratinjau tanpa header.js
+            if (!document.getElementById('main-header') && typeof renderPreviewHeaderFallback === 'function') {
+                renderPreviewHeaderFallback();
+            }
 
-                    if (elementTop < windowHeight - elementVisible) {
-                        reveals[i].classList.add("active");
+            // 1. Animasi Scroll Reveal
+            function reveal() {
+                const reveals = document.querySelectorAll('.reveal');
+                const windowHeight = window.innerHeight;
+                for (let i = 0; i < reveals.length; i++) {
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 40) {
+                        reveals[i].classList.add('active');
                     }
                 }
             }
+            window.addEventListener('scroll', reveal, { passive: true });
+            setTimeout(reveal, 80);
 
-            window.addEventListener("scroll", reveal);
-            setTimeout(reveal, 100);
-
-            // Carousel foto saat kursor diarahkan (hover) ke kartu
+            // 2. Kontrol Carousel Foto Super Halus (Desktop Hover & Mobile Ketuk Sekali)
             const carouselCards = document.querySelectorAll('.carousel-card');
+            const isHoverDevice = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            const cardControllers = new Map();
 
             carouselCards.forEach(card => {
-                let intervalId;
+                let startTimeout = null;
+                let intervalId = null;
+                let cleanupTimeout = null;
                 let currentIndex = 0;
-                const images = card.querySelectorAll('.carousel-img');
+                const allImages = Array.from(card.querySelectorAll('.carousel-img'));
 
-                if (images.length > 1) {
-                    card.addEventListener('mouseenter', () => {
-                        intervalId = setInterval(() => {
-                            images[currentIndex].classList.remove('opacity-100', 'z-10');
-                            images[currentIndex].classList.add('opacity-0', 'z-0');
+                // Abaikan slide tambahan yang gagal dimuat agar tidak pernah muncul gambar kosong
+                allImages.forEach((img, idx) => {
+                    if (idx > 0) {
+                        img.addEventListener('error', () => {
+                            img.dataset.broken = 'true';
+                        });
+                    }
+                });
 
-                            currentIndex = (currentIndex + 1) % images.length;
+                const getValidImages = () => allImages.filter(img => img.dataset.broken !== 'true');
 
-                            images[currentIndex].classList.remove('opacity-0', 'z-0');
-                            images[currentIndex].classList.add('opacity-100', 'z-10');
-                        }, 2000);
+                const showSlide = (nextIdx) => {
+                    const validImages = getValidImages();
+                    if (validImages.length <= 1 || nextIdx === currentIndex) return;
+
+                    const prevImg = validImages[currentIndex] || validImages[0];
+                    const nextImg = validImages[nextIdx] || validImages[0];
+
+                    validImages.forEach((img, idx) => {
+                        if (idx !== currentIndex && idx !== nextIdx) {
+                            img.classList.remove('opacity-100', 'z-10', 'z-20', 'is-slide-visible');
+                            img.classList.add('opacity-0', 'z-0');
+                        }
                     });
 
-                    card.addEventListener('mouseleave', () => {
-                        clearInterval(intervalId);
-                        images.forEach((img, index) => {
-                            img.classList.add('no-transition');
-                            if (index === 0) {
-                                img.classList.remove('opacity-0', 'z-0');
-                                img.classList.add('opacity-100', 'z-10');
-                            } else {
-                                img.classList.remove('opacity-100', 'z-10');
-                                img.classList.add('opacity-0', 'z-0');
+                    // Slide sebelumnya bertahan sebagai latar di z-10
+                    prevImg.classList.remove('z-20');
+                    prevImg.classList.add('opacity-100', 'z-10');
+
+                    // Slide berikutnya masuk di atas (z-20) dengan crossfade halus
+                    nextImg.classList.remove('z-0', 'z-10', 'opacity-100');
+                    nextImg.classList.add('opacity-0', 'z-20');
+                    void nextImg.offsetWidth;
+                    nextImg.classList.remove('opacity-0');
+                    nextImg.classList.add('opacity-100', 'is-slide-visible');
+
+                    clearTimeout(cleanupTimeout);
+                    cleanupTimeout = setTimeout(() => {
+                        prevImg.classList.remove('opacity-100', 'z-10', 'is-slide-visible');
+                        prevImg.classList.add('opacity-0', 'z-0');
+                        nextImg.classList.remove('z-20');
+                        nextImg.classList.add('z-10');
+                    }, 960);
+
+                    currentIndex = nextIdx;
+                };
+
+                const nextSlide = () => {
+                    const validImages = getValidImages();
+                    if (validImages.length <= 1) return;
+                    showSlide((currentIndex + 1) % validImages.length);
+                };
+
+                const startCarousel = (fastFirstStep = false) => {
+                    stopCarousel(false);
+                    card.classList.add('is-active');
+
+                    const validImages = getValidImages();
+                    if (validImages.length <= 1) return;
+
+                    startTimeout = setTimeout(() => {
+                        nextSlide();
+                        intervalId = setInterval(nextSlide, 2200);
+                    }, fastFirstStep ? 600 : 1100);
+                };
+
+                const stopCarousel = (resetToFirst = true) => {
+                    clearTimeout(startTimeout);
+                    clearInterval(intervalId);
+                    startTimeout = null;
+                    intervalId = null;
+                    card.classList.remove('is-active');
+
+                    if (resetToFirst && currentIndex !== 0) {
+                        showSlide(0);
+                    }
+                };
+
+                cardControllers.set(card, { startCarousel, stopCarousel, nextSlide });
+
+                // Desktop Hover
+                card.addEventListener('mouseenter', () => {
+                    if (!isHoverDevice()) return;
+                    startCarousel(false);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (!isHoverDevice()) return;
+                    stopCarousel(true);
+                });
+
+                // Khusus klik bagian link Google Drive
+                const driveLink = card.querySelector('.drive-link');
+                if (driveLink) {
+                    driveLink.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (driveLink.dataset.pendingDrive === 'true') {
+                            e.preventDefault();
+                            const toast = document.getElementById('drive-toast');
+                            if (toast) {
+                                toast.classList.remove('opacity-0', 'translate-y-3');
+                                toast.classList.add('opacity-100', 'translate-y-0');
+                                clearTimeout(window.__toastTimer);
+                                window.__toastTimer = setTimeout(() => {
+                                    toast.classList.add('opacity-0', 'translate-y-3');
+                                    toast.classList.remove('opacity-100', 'translate-y-0');
+                                }, 2600);
                             }
-                            setTimeout(() => {
-                                img.classList.remove('no-transition');
-                            }, 50);
-                        });
-                        currentIndex = 0;
+                        }
+                    });
+                }
+
+                // Mobile Tap: Ketuk sekali untuk timbul & jalankan carousel
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.drive-link')) return;
+
+                    const isAlreadyActive = card.classList.contains('is-active');
+
+                    carouselCards.forEach(otherCard => {
+                        if (otherCard !== card && otherCard.classList.contains('is-active')) {
+                            cardControllers.get(otherCard)?.stopCarousel(true);
+                        }
+                    });
+
+                    if (!isAlreadyActive) {
+                        startCarousel(true);
+                    } else if (!isHoverDevice()) {
+                        nextSlide();
+                    }
+                });
+            });
+
+            // Ketuk di luar kartu pada mobile untuk menurunkan kembali kartu yang aktif
+            document.addEventListener('click', (e) => {
+                if (isHoverDevice()) return;
+                if (!e.target.closest('.carousel-card')) {
+                    carouselCards.forEach(card => {
+                        if (card.classList.contains('is-active')) {
+                            cardControllers.get(card)?.stopCarousel(true);
+                        }
                     });
                 }
             });
