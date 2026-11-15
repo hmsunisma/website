@@ -2,7 +2,7 @@
  * ============================================================================
  * HEADER NAVIGASI TERPUSAT – HIMPUNAN MAHASISWA SIPIL (HMS UNISMA)
  * File ini dipanggil oleh setiap halaman HTML melalui:
- * <div id="hms-header-container" data-active="berita.html"></div>
+ * <div id="hms-header-container" data-active="berita"></div>
  * <script src="header.js"></script>
  * ============================================================================
  */
@@ -15,7 +15,7 @@
             let cleanPath = null;
 
             if (path === '/' || /\/index(\.html)?$/i.test(path)) {
-                cleanPath = path.replace(/\/(index(\.html)?)?$/i, '/home');
+                cleanPath = path.replace(/\/(index(\.html)?)?$/i, '/index.html');
             } else if (/\.html$/i.test(path)) {
                 cleanPath = path.replace(/\.html$/i, '');
             }
@@ -41,32 +41,32 @@
             subtitle: 'Teknik Sipil',
             logo: 'https://res.cloudinary.com/t8om9lyk/image/upload/v1794560331/LOGO_HMS_TERBARU_1.png',
             logoFallback: 'https://placehold.co/40x40/1e3a8a/ffffff?text=HMS',
-            homeHref: 'home',
+            homeHref: 'index.html',
             cta: {
                 desktop: 'Aspirasi',
                 mobile: 'Sampaikan Aspirasi',
                 href: 'https://forms.gle/AoemyXn1UVsCV1pHA'
             },
             menus: [
-                { label: 'Beranda', mobileLabel: 'Beranda', href: 'home' },
-                { label: 'Profil', mobileLabel: 'Profil Organisasi', href: 'profil' },
-                { label: 'Prestasi', mobileLabel: 'Karya & Prestasi', href: 'prestasi' },
+                { label: 'Beranda', mobileLabel: 'Beranda', href: 'index.html' },
+                { label: 'Profil', mobileLabel: 'Profil Organisasi', href: 'profil.html' },
+                { label: 'Prestasi', mobileLabel: 'Karya & Prestasi', href: 'prestasi.html' },
                 {
                     label: 'Berita',
                     mobileLabel: 'Berita Terkini',
-                    href: 'berita',
+                    href: 'berita.html',
                     dropdown: [
-                        { title: 'Semua Kabar & Berita', href: 'berita', tag: 'Indeks Berita', isAll: true },
-                        { title: 'Forum Sipil (FORSIP) 2026 Teknik Sipil UNISMA', href: 'forum sipil 2026', tag: '8 Nov 2026' },
-                        { title: 'Workshop Road to KJI & KBGI 2027', href: 'workshop road to kji-kbgi 2027', tag: '30 Okt 2026' },
-                        { title: 'Study Excursion PT Wijaya Karya Beton', href: 'study excursion 2026', tag: '29 Sep 2026' },
-                        { title: 'CIVAFEST 2026 Universitas Islam Malang', href: 'civafest 2026', tag: '11 Agu 2026' },
-                        { title: 'CIVEX 2026 Teknik Sipil UNISMA', href: 'civex 2026', tag: '10 Jun 2026' },
-                        { title: 'Rapat Kerja Himpunan Mahasiswa Sipil 2026', href: 'rapat kerja 2026', tag: '14 Mar 2026' }
+                        { title: 'Semua Kabar & Berita', href: 'berita.html', tag: 'Indeks Berita', isAll: true },
+                        { title: 'Forum Sipil (FORSIP) 2026 Teknik Sipil UNISMA', href: 'detail berita/forum sipil 2026.html', tag: '8 Nov 2026' },
+                        { title: 'Workshop Road to KJI & KBGI 2027', href: 'detail berita/workshop road to kji-kbgi 2027.html', tag: '30 Okt 2026' },
+                        { title: 'Study Excursion PT Wijaya Karya Beton', href: 'detail berita/study excursion 2026.html', tag: '29 Sep 2026' },
+                        { title: 'CIVAFEST 2026 Universitas Islam Malang', href: 'detail berita/civafest 2026.html', tag: '11 Agu 2026' },
+                        { title: 'CIVEX 2026 Teknik Sipil UNISMA', href: 'detail berita/civex 2026.html', tag: '10 Jun 2026' },
+                        { title: 'Rapat Kerja Himpunan Mahasiswa Sipil 2026', href: 'detail berita/rapat kerja 2026.html', tag: '14 Mar 2026' }
                     ]
                 },
-                { label: 'Galeri', mobileLabel: 'Galeri Kegiatan', href: 'galeri' },
-                { label: 'Kontak', mobileLabel: 'Hubungi Kami', href: 'kontak' }
+                { label: 'Galeri', mobileLabel: 'Galeri Kegiatan', href: 'galeri.html' },
+                { label: 'Kontak', mobileLabel: 'Hubungi Kami', href: 'kontak.html' }
             ]
         };
 
