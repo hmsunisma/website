@@ -38,6 +38,24 @@
     const isSubfolder = (scriptSrc && scriptSrc.startsWith('../')) || /\/detail-berita\//i.test(window.location.pathname);
     const basePath = isSubfolder ? '../' : '';
 
+    // Pasang Favicon Logo HMS UNISMA secara otomatis di semua halaman
+    (function setHMSFavicon() {
+        const faviconUrl = 'https://res.cloudinary.com/t8om9lyk/image/upload/v1794560331/LOGO_HMS_TERBARU_1.png';
+        if (!document.querySelector("link[rel*='icon']")) {
+            const link = document.createElement('link');
+            link.rel = 'icon';
+            link.type = 'image/png';
+            link.href = faviconUrl;
+            document.head.appendChild(link);
+        }
+        if (!document.querySelector("link[rel='apple-touch-icon']")) {
+            const appleLink = document.createElement('link');
+            appleLink.rel = 'apple-touch-icon';
+            appleLink.href = faviconUrl;
+            document.head.appendChild(appleLink);
+        }
+    })();
+
     function initHMSHeader() {
         // Cegah duplikasi jika header sudah terpasang
         if (document.getElementById('main-header')) return;
